@@ -56,12 +56,12 @@ mongoose
   .catch(err => console.log(err));
 
 // Routes
-var img = {};
+let img = {};
 app.get("/getimage", (req, res) => {
-  // img = { url: "/uploads/myImage-1561744553900.png" };
-
-  res.json(img);
-  console.log(img);
+  if (img != null) {
+    res.json(img);
+    console.log(img);
+  }
 });
 app.post("/upload", (req, res) => {
   upload(req, res, err => {

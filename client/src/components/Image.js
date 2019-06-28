@@ -5,10 +5,39 @@ import PropTypes from "prop-types";
 const axios = require("axios");
 
 class Image extends Component {
-  state = {
-    file: null
-  };
-  componentDidMount() {}
+  // state = {
+  //   file: null
+  // };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      rotation: 0
+    };
+
+    this.rotate = this.rotate.bind(this);
+    this.rotateleft = this.rotateleft.bind(this);
+  }
+
+  rotate() {
+    let newRotation = this.state.rotation + 90;
+    if (newRotation >= 360) {
+      newRotation = -360;
+    }
+    this.setState({
+      rotation: newRotation
+    });
+  }
+
+  rotateleft() {
+    let newRotation = this.state.rotation - 90;
+    if (newRotation >= 360) {
+      newRotation = -360;
+    }
+    this.setState({
+      rotation: newRotation
+    });
+  }
 
   onSubmit = e => {
     e.preventDefault();
@@ -34,6 +63,8 @@ class Image extends Component {
   };
   render() {
     const { image } = this.props.image;
+    const { rotation } = this.state;
+
     // console.log(image["url"]);
     return (
       <div>
@@ -60,7 +91,31 @@ class Image extends Component {
                   </button>
                 </form>
               </div>
-              <img src={image["url"]} alt="" width="500" />
+              <div>
+                <img
+                  src={image["url"]}
+                  alt=""
+                  width="400"
+                  style={{
+                    transform: `rotate(${rotation}deg)`
+                  }}
+                />
+              </div>
+              <div>
+                <input
+                  onClick={this.rotateleft}
+                  type="button"
+                  value="left Rotate"
+                  className="btn btn-info m-3"
+                />
+
+                <input
+                  onClick={this.rotate}
+                  type="button"
+                  value="right Rotate"
+                  className="btn btn-info m-3"
+                />
+              </div>
             </div>
           </div>
         </div>
