@@ -40,11 +40,8 @@ function checkFileType(file, cb) {
 
 const app = express();
 
-// EJS
-app.set("view engine", "ejs");
-
 // Public Folder
-app.use(express.static("./public"));
+app.use(express.static(__dirname + "/public"));
 
 // Bodyparser Middleware
 app.use(bodyParser.json());
