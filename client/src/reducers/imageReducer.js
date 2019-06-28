@@ -1,16 +1,20 @@
 import { GET_IMAGE, ADD_IMAGE } from "../actions/types";
 
 const initialState = {
-  image: { url: "uploads/1.png" }
+  image: {}
 };
 
-export default function(state = initialState, action) {
+const imageReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_IMAGE:
+      console.log(action.payload);
       return {
-        ...state
+        ...state,
+        image: action.payload
       };
     default:
       return state;
   }
-}
+};
+
+export default imageReducer;

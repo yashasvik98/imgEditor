@@ -56,23 +56,33 @@ mongoose
   .catch(err => console.log(err));
 
 // Routes
-app.get("/", (req, res) => res.render("index"));
+var img = {};
+app.get("/getimage", (req, res) => {
+  // img = { url: "/uploads/myImage-1561744553900.png" };
+
+  res.json(img);
+  console.log(img);
+});
 app.post("/upload", (req, res) => {
   upload(req, res, err => {
+    console.log("Uploaded");
     if (err) {
       res.render("index", {
         msg: err
       });
     } else {
       if (req.file == undefined) {
-        res.render("index", {
-          msg: "Error: No File selected!"
-        });
+        // res.render("index", {
+        console.log("Error: No File selected!");
+        // });
       } else {
-        res.render("index", {
-          msg: "File uploaded!",
-          file: `uploads/${req.file.filename}`
-        });
+        // res.render("index", {
+        //   msg: "File uploaded!",
+        //   file: `uploads/${req.file.filename}`
+        // });
+        img = { url: `uploads/${req.file.filename}` };
+
+        res.redirect("/getimage");
       }
     }
   });
